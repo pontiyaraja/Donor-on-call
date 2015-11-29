@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.doc.donoroncall</groupId>
 	<artifactId>donoroncall</artifactId>
-	<name>deccanplato</name>
+	<name>donor-on-call</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.8</java-version>
+		<java-version>1.7</java-version>
 		<org.springframework-version>3.2.2.RELEASE</org.springframework-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.aspectj-version>1.7.2</org.aspectj-version>
@@ -167,7 +167,9 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Final</version>
-		</dependency>		
+		</dependency>
+		<!-- <dependency> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+			<version>3.3</version> <type>maven-plugin</type> </dependency> -->
 	</dependencies>
 	<repositories>
 		<!-- Local project repo diwarrectory. -->
@@ -197,7 +199,7 @@
 			<id>springsource-repo</id>
 			<name>SpringSource Repository</name>
 			<url>http://repo.springsource.org/release</url>
-		</repository>		
+		</repository>
 	</repositories>
 	<!-- Central maven repos. This is available inside maven by default We add 
 		it here so mvn, does a first search in this repos. -->
@@ -248,8 +250,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<compilerArgument>-Xlint:-path</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
