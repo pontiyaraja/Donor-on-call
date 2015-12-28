@@ -7,8 +7,8 @@ import org.doc.donoroncall.donar.BloodRequesterInfo;
 
 /**
  * @author pandiyaraja
- *
+ * 
  */
 public interface BloodRequestDAOHandler {
-	public String requestBloodDao(BloodRequesterInfo brInfo);
+	public String donorRequestDao(BloodRequesterInfo brInfo);
 }

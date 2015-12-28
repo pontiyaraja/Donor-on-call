@@ -76,7 +76,7 @@ public class RegistrationDAOService extends ConnectionProvider implements Regist
 		    st.setString(6, regInfo.getDob());
 		    st.setString(7, "no");
 		    
-		    retval = insertData(st);
+		    retval = executeUpdate(st);
 		    if(retval==1){
 		    	return "success";
 		    }else{

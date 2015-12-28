@@ -63,7 +63,7 @@ public class ConnectionProvider {
 		}
 		return null;
 	}
-	public synchronized int insertData(PreparedStatement st) throws SQLException, Exception{		
+	public synchronized int executeUpdate(PreparedStatement st) throws SQLException, Exception{		
 	    int val = st.executeUpdate();
 	    st.close();
 		return val;

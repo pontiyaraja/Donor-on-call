@@ -9,8 +9,8 @@ import org.doc.core.api.registration.handler.LoginHandler;
 import org.doc.core.api.registration.handler.RegisterationHandler;
 import org.doc.core.api.registration.info.LoginInfo;
 import org.doc.core.api.registration.info.RegisterationInfo;
-import org.doc.donoroncall.donar.DonorRequesterHandler;
-import org.doc.donoroncall.donar.DonorRequesterInfo;
+import org.doc.donoroncall.donar.BloodRequesterHandler;
+import org.doc.donoroncall.donar.BloodRequesterInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class GatewayController {
 	@Autowired
 	RegisterationHandler regHand;
 	@Autowired
-	DonorRequesterHandler drHandler;
+	BloodRequesterHandler drHandler;
 	private static final String clz = "GatewayController: ";
 
 	private final Logger logger = LoggerFactory.getLogger(GatewayController.class);
@@ -90,7 +90,7 @@ public class GatewayController {
 	String donorRegister(@RequestBody String inputAsJson) {
 		try{
 		Gson gson=new Gson();
-		DonorRequesterInfo drInfo = gson.fromJson(inputAsJson, DonorRequesterInfo.class);
+		BloodRequesterInfo drInfo = gson.fromJson(inputAsJson, BloodRequesterInfo.class);
 		String resString = drHandler.donorRequest(drInfo);
 		Map<String, String> obj = new HashMap<String,String>();
 		if(resString.equalsIgnoreCase("success")){

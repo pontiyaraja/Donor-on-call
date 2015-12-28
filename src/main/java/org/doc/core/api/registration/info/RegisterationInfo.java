@@ -15,6 +15,7 @@ public class RegisterationInfo {
 	private String bloodGroup;
 	private String type;
 	private String dob;
+	private String authorized;
 
 	/**
 	 * @return the userName
@@ -106,6 +107,20 @@ public class RegisterationInfo {
 		this.dob = dob;
 	}
 	
+	/**
+	 * @return the authorized
+	 */
+	public String getAuthorized() {
+		return authorized;
+	}
+
+	/**
+	 * @param authorized the authorized to set
+	 */
+	public void setAuthorized(String authorized) {
+		this.authorized = authorized;
+	}
+
 	public String toString(){
 		return (this.userName+"  "+this.passWord+"  "+this.name+"  "+this.bloodGroup+"  "+this.dob+"  "+type);
 	}
