@@ -3,7 +3,7 @@
  */
 package org.doc.core.api.registration.handler;
 
-import org.doc.core.api.registration.info.RegisterationInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,5 +12,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface RegisterationHandler {
-	public String registerAccount(RegisterationInfo regInfo);
+	public String registerAccount(RegistrationInfo regInfo);
 }

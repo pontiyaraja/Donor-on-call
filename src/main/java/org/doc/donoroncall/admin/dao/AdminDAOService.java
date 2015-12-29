@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.doc.core.api.registration.info.RegisterationInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.core.util.DocMailingProcessor;
 import org.doc.core.util.db.ConnectionProvider;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 public class AdminDAOService extends ConnectionProvider implements AdminDAOHandler{
 		
 	@Override
-	public List<RegisterationInfo> getRegUserList() {
-		RegisterationInfo regInfo;
-		List<RegisterationInfo> regList = new ArrayList<RegisterationInfo>();
+	public List<RegistrationInfo> getRegUserList() {
+		RegistrationInfo regInfo;
+		List<RegistrationInfo> regList = new ArrayList<RegistrationInfo>();
 		String query = "select * from user";
 		ResultSet rs = getResult(query);
 		while(rs!=null){
 			try {
-				regInfo = new RegisterationInfo();
+				regInfo = new RegistrationInfo();
 				regInfo.setName(rs.getString("username"));
 				regInfo.setPassWord(rs.getString("password"));
 				regInfo.setName(rs.getString("name"));

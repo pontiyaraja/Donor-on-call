@@ -8,7 +8,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.doc.core.api.registration.handler.LoginHandler;
 import org.doc.core.api.registration.handler.RegisterationHandler;
 import org.doc.core.api.registration.info.LoginInfo;
-import org.doc.core.api.registration.info.RegisterationInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.donoroncall.donar.BloodRequesterHandler;
 import org.doc.donoroncall.donar.BloodRequesterInfo;
 import org.slf4j.Logger;
@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-//import com.fasterxml.jackson.core.JsonGenerationException;
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
 
 @Controller
 public class GatewayController {
@@ -69,7 +66,7 @@ public class GatewayController {
 		try{
 		logger.info(GatewayController.class+"  Input String "+inputAsJson);	
 		Gson gson=new Gson();
-		RegisterationInfo regInfo = gson.fromJson(inputAsJson, RegisterationInfo.class);
+		RegistrationInfo regInfo = gson.fromJson(inputAsJson, RegistrationInfo.class);
 		String resString = regHand.registerAccount(regInfo);		
 		Map<String, String> obj = new HashMap<String,String>();
 		if(resString.equalsIgnoreCase("success")){

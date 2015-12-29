@@ -4,7 +4,7 @@
 package org.doc.core.api.registration.dao;
 
 import org.doc.core.api.registration.info.LoginInfo;
-import org.doc.core.api.registration.info.RegisterationInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,5 +14,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RegistrationDAOHandler {
 	public String loginAuthenticationDAO(LoginInfo logInfo);
-	public String registrationAccountDAO(RegisterationInfo regInfo);
+	public String registrationAccountDAO(RegistrationInfo regInfo);
 }

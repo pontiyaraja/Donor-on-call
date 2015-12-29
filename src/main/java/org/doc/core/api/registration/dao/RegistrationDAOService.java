@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.doc.core.api.registration.info.LoginInfo;
-import org.doc.core.api.registration.info.RegisterationInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.core.util.db.ConnectionProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +60,7 @@ public class RegistrationDAOService extends ConnectionProvider implements Regist
 	 * registrationAccountDAO
 	 * (org.doc.core.api.registration.info.RegistrationInfo)
 	 */
-	public String registrationAccountDAO(RegisterationInfo regInfo) {
+	public String registrationAccountDAO(RegistrationInfo regInfo) {
 		int retval=0;
 		try {
 			log.info(RegistrationDAOService.class+"  RegistrationInfo : "+regInfo.toString());

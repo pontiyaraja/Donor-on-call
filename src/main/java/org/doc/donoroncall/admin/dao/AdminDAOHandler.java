@@ -5,7 +5,7 @@ package org.doc.donoroncall.admin.dao;
 
 import java.util.List;
 
-import org.doc.core.api.registration.info.RegisterationInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface AdminDAOHandler {
-	public List<RegisterationInfo> getRegUserList();
+	public List<RegistrationInfo> getRegUserList();
 	public String authorizeUser(String userName);
 	public String acceptRequest(String userName);
 }

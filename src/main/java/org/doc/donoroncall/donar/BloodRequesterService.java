@@ -28,7 +28,7 @@ public class BloodRequesterService implements BloodRequesterHandler {
 		String regRes = drDAOHandler.donorRequestDao(drInfo);
 		if(regRes.equalsIgnoreCase("success")){
 			DocMailingProcessor dmProcess = new DocMailingProcessor();
-			dmProcess.sendMail("pontiyaraja14@gmail.com", "vimalsri#14", "pontiyaraja14@gmail.com", "Blood request", "Hi, Please accept my blood request");			
+			dmProcess.sendMail("pontiyaraja14@gmail.com", "Blood request", "Hi, Please accept my blood request");			
 		}
 		return regRes;
 	}

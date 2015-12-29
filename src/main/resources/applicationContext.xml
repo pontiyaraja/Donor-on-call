@@ -25,5 +25,29 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com"/>
+      <property name="port" value="587" />
+	  <property name="username" value="pontiyaraja@gmail.com" />
+	  <property name="password" value="vimalsri#14" />
+	  <!-- The name of the property, following JavaBean naming conventions -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+    </bean>
+
+	<!-- this is a template message that we can pre-load with default state -->
+	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+	</bean>
+	
+	<bean id="docMailingProcessor" class="org.doc.core.util.DocMailingProcessor">
+       <property name="mailSender" ref="mailSender"/>
+    </bean>
 
 </beans>
