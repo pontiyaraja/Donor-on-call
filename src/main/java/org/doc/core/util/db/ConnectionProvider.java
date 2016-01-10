@@ -21,7 +21,7 @@ public class ConnectionProvider {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/doc", "root", "root");
+					"jdbc:mysql://localhost:3306/doc", "root", "pvrdbadmin");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,5 +67,14 @@ public class ConnectionProvider {
 	    int val = st.executeUpdate();
 	    st.close();
 		return val;
+	}
+	public synchronized ResultSet getResult(PreparedStatement st) {
+		try { 
+			return st.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

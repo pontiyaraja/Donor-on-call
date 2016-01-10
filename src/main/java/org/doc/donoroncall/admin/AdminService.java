@@ -6,7 +6,7 @@ package org.doc.donoroncall.admin;
 import java.util.List;
 
 import org.doc.core.api.registration.info.RegistrationInfo;
-import org.doc.core.util.DocMailingProcessor;
+import org.doc.core.util.DocMailingInterface;
 import org.doc.donoroncall.admin.dao.AdminDAOHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,18 +20,21 @@ public class AdminService implements AdminHandler{
 
 	@Autowired
 	private AdminDAOHandler adminDAOHandler;
+	
+	@Autowired
+	DocMailingInterface dmi;
+	
 	@Override
-	public String getRegUserList() {
+	public List<RegistrationInfo> getRegUserList() {
 		List<RegistrationInfo> regUserList = adminDAOHandler.getRegUserList();
-		return null;
+		return regUserList;
 	}
 
 	@Override
 	public String authorizeUser(String userName) {
 		String resString = adminDAOHandler.authorizeUser(userName);
 		if(resString.equalsIgnoreCase("success")){
-			DocMailingProcessor docMailProcess = new DocMailingProcessor();
-	    	docMailProcess.sendMail("pontiyaraja14@gmail.com", "Registration request approved", "Hi, Your registration has been done successfully!");
+			dmi.sendMail(userName, "Registration request approved", "Hi, Your registration has been done successfully!");
 		}
 		return resString;
 	}
@@ -40,8 +43,7 @@ public class AdminService implements AdminHandler{
 	public String acceptBloodRequest(String userName) {
 		String resString = adminDAOHandler.acceptRequest(userName);
 		if(resString.equalsIgnoreCase("success")){
-			DocMailingProcessor docMailProcess = new DocMailingProcessor();
-	    	docMailProcess.sendMail("pontiyaraja14@gmail.com", "Blood Request request approved", "Hi, Your blood request accepted successfully!");
+			dmi.sendMail(userName, "Blood Request request approved", "Hi, Your blood request accepted successfully!");
 		}
 		return resString;
 	}
