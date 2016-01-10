@@ -8,17 +8,17 @@ import org.apache.wink.client.RestClient;
 import org.junit.Test;
 
 /**
- * @author pandiyaraja
- * 
+ * @author Pandiyaraja
+ *
  */
-public class GateWayControllerTest {
+public class LoginTest {
 	@Test
-	public void loginTest() {
+	public void entryTest() {
 
 		RestClient rc = new RestClient();
 
 		StringBuilder strb = new StringBuilder();
-		strb.append("{\"userName\":\"Pandi\",\"password\":\"Pan\"}");
+		strb.append("{\"userName\":\"pontiyaraja@gmail.com\",\"passWord\":\"Pan\"}");
 		Resource resource = rc
 				.resource("http://localhost:8080/donoroncall/doc/gateWay");
 		String response = resource.contentType("application/json")

@@ -3,10 +3,15 @@
  */
 package org.doc.donoroncall.controller;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.doc.core.api.registration.info.LoginInfo;
+import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.donoroncall.admin.AdminHandler;
+import org.doc.donoroncall.admin.dao.AdminInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,25 +21,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author pandiyaraja
  *
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admn")
 public class AdminController {
 	@Autowired
 	private AdminHandler adminHandler;
-	@RequestMapping(value = "/regUserList", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String listAllRegisteredUsers(){
-		return adminHandler.getRegUserList();
+	@RequestMapping(value = "/regUserList", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody <T> String listAllRegisteredUsers(){
+		Gson gson=new Gson();
+		List<RegistrationInfo> userList = adminHandler.getRegUserList();
+		Map<String, T> obj = new HashMap<String,T>();
+		System.out.println("User list size ---->  "+userList.size());
+		if(!userList.isEmpty()){
+		obj.put("users", (T) userList);
+		obj.put("status", (T)"success");
+		}else{
+			obj.put("status", (T)"failed");
+		}		
+		return gson.toJson(obj);
 	}
 	
-	@RequestMapping(value = "/authorize", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String authorizeUser(@RequestParam String userName){
+	@RequestMapping(value = "/authorize", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String authorizeUser(@RequestBody String userString){
 		Gson gson=new Gson();
-		String resString =  adminHandler.authorizeUser(userName);
+		AdminInfo admiInfo = gson.fromJson(userString, AdminInfo.class);
+		String resString =  adminHandler.authorizeUser(admiInfo.getUserName());
 		Map<String, String> obj = new HashMap<String,String>();
 		if(resString.equalsIgnoreCase("success")){
 		obj.put("authorization", "yes");
@@ -46,10 +63,11 @@ public class AdminController {
 		return gson.toJson(obj);
 	}
 	
-	@RequestMapping(value = "/acceptBloodRequest", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String acceptBloodRequest(@RequestParam String userName){
+	@RequestMapping(value = "/acceptBloodRequest", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String acceptBloodRequest(@RequestBody String userString){
 		Gson gson=new Gson();
-		String resString = adminHandler.acceptBloodRequest(userName);
+		AdminInfo admiInfo = gson.fromJson(userString, AdminInfo.class);
+		String resString = adminHandler.acceptBloodRequest(admiInfo.getUserName());
 		Map<String, String> obj = new HashMap<String,String>();
 		if(resString.equalsIgnoreCase("success")){
 		obj.put("blood_request", "accepted");

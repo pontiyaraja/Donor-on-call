@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.doc.core.api.registration.info.RegistrationInfo;
-import org.doc.core.util.DocMailingProcessor;
 import org.doc.core.util.db.ConnectionProvider;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class AdminDAOService extends ConnectionProvider implements AdminDAOHandler{
@@ -19,24 +19,23 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 	public List<RegistrationInfo> getRegUserList() {
 		RegistrationInfo regInfo;
 		List<RegistrationInfo> regList = new ArrayList<RegistrationInfo>();
-		String query = "select * from user";
+		String query = "select * from doc.user";
 		ResultSet rs = getResult(query);
-		while(rs!=null){
-			try {
+		try {
+			while(rs.next()){			
 				regInfo = new RegistrationInfo();
 				regInfo.setName(rs.getString("username"));
 				regInfo.setPassWord(rs.getString("password"));
 				regInfo.setName(rs.getString("name"));
-				regInfo.setBloodGroup(rs.getNString("blood_group"));
+				regInfo.setBloodGroup(rs.getString("blood_group"));
 				regInfo.setType(rs.getString("type"));
-				regInfo.setDob(rs.getNString("dob"));
+				regInfo.setDob(rs.getDate("dob").toString());
 				regInfo.setAuthorized(rs.getString("authorized"));
-				regList.add(regInfo);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				regList.add(regInfo);					
+			} 
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return regList;
 	}
@@ -49,8 +48,39 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 			PreparedStatement st = con.prepareStatement(query);
 			st.setString(1, userName);
 			int retval = executeUpdate(st);
-		    if(retval==1){		    	
-		    	return "success";
+		    if(retval>0){
+		    	String userQuery = "select * from doc.user where username= ?";
+		    	PreparedStatement st1 = con.prepareStatement(userQuery);
+				st1.setString(1, userName);
+		    	ResultSet rs1 = getResult(st1);
+		    	if(rs1!=null){
+			    	String passWord="";
+			    	System.out.println("Password ........   "+passWord);			    	
+					try {
+						while(rs1.next()){
+							passWord = rs1.getString("password");
+						}
+						System.out.println("Password ........   "+passWord);
+				    	if(passWord!=null){
+				    		System.out.println("Password ........   Internal  ......   "+passWord);
+				    		String loginQuery = "insert into doc.login_auth (`username`,`password`) VALUES (?,?)";
+						    PreparedStatement st2 = con.prepareStatement(loginQuery);
+						    st2.setString(1, userName);
+						    st2.setString(2, passWord);
+						    retval = executeUpdate(st2);
+						    if(retval>0){
+						    	return "success";
+						    }else{
+						    	return "fail";
+						    }
+				    	}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}			    	
+		    	}else{
+		    		return "fail";
+		    	}
 		    }else{
 		    	return "fail";
 		    }
@@ -61,12 +91,12 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return "fail";
 	}
 
 	@Override
 	public String acceptRequest(String userName) {
-		String query = "update user set verified='yes' where username= ?";
+		String query = "update doc.donor set verified='yes' where user_name= ?";
 		Connection con = getConnection();
 		try {
 			PreparedStatement st = con.prepareStatement(query);
@@ -81,7 +111,7 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return "fail";
 	}
 
 }
