@@ -9,8 +9,8 @@ import org.doc.core.api.registration.handler.LoginHandler;
 import org.doc.core.api.registration.handler.RegisterationHandler;
 import org.doc.core.api.registration.info.LoginInfo;
 import org.doc.core.api.registration.info.RegistrationInfo;
-import org.doc.donoroncall.donar.BloodRequesterHandler;
-import org.doc.donoroncall.donar.BloodRequesterInfo;
+import org.doc.donoroncall.donar.DocRequestHandler;
+import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class GatewayController {
 	@Autowired
 	RegisterationHandler regHand;
 	@Autowired
-	BloodRequesterHandler drHandler;
+	DocRequestHandler drHandler;
 	private static final String clz = "GatewayController: ";
 
 	private final Logger logger = LoggerFactory.getLogger(GatewayController.class);
@@ -46,13 +46,15 @@ public class GatewayController {
 		LoginInfo loginInfo = gson.fromJson(inputAsJson, LoginInfo.class);
 		String resString = loginHand.loginAuthenticate(loginInfo);
 		Map<String, String> obj = new HashMap<String,String>();
-		if(resString.equalsIgnoreCase("success")){		
-		obj.put("success", "true");
-		String uuid = UUID.randomUUID().toString()+loginInfo.getPassword();
-		byte [] tokenByte = new Base64(true).encodeBase64(uuid.getBytes());
-		String token = new String(tokenByte);
-		obj.put("accessToken", token);		
-		logger.info(clz + "getOAuth GET end."+loginInfo.getUserName()+"    "+resString);		
+		String res[] = resString.split("#");
+		if(res[0].equalsIgnoreCase("success")){		
+			obj.put("success", "true");
+			obj.put("type", res[1]);
+			String uuid = UUID.randomUUID().toString()+loginInfo.getPassword();
+			byte [] tokenByte = new Base64(true).encodeBase64(uuid.getBytes());
+			String token = new String(tokenByte);
+			obj.put("accessToken", token);		
+			logger.info(clz + "getOAuth GET end."+loginInfo.getUserName()+"    "+resString);		
 		}else{
 			obj.put("success", "false");
 			obj.put("accessToken", null);		
@@ -87,7 +89,7 @@ public class GatewayController {
 	String donorRegister(@RequestBody String inputAsJson) {
 		try{
 		Gson gson=new Gson();
-		BloodRequesterInfo drInfo = gson.fromJson(inputAsJson, BloodRequesterInfo.class);
+		DocRequesterInfo drInfo = gson.fromJson(inputAsJson, DocRequesterInfo.class);
 		String resString = drHandler.donorRequest(drInfo);
 		Map<String, String> obj = new HashMap<String,String>();
 		if(resString.equalsIgnoreCase("success")){

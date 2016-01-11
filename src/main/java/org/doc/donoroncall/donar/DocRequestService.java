@@ -5,7 +5,7 @@ package org.doc.donoroncall.donar;
 
 import org.doc.core.util.DocMailingInterface;
 import org.doc.core.util.DocMailingProcessor;
-import org.doc.donoroncall.donar.dao.BloodRequestDAOHandler;
+import org.doc.donoroncall.donar.dao.DocRequestDAOHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
-public class BloodRequesterService implements BloodRequesterHandler {
+public class DocRequestService implements DocRequestHandler {
 	@Autowired
-	BloodRequestDAOHandler drDAOHandler;
+	DocRequestDAOHandler drDAOHandler;
 	
 	@Autowired
 	DocMailingInterface dmi;
@@ -28,11 +28,16 @@ public class BloodRequesterService implements BloodRequesterHandler {
 	 * donoroncall.donar.BloodRequesterInfo)
 	 */
 	@Override
-	public String donorRequest(BloodRequesterInfo drInfo) {
+	public String donorRequest(DocRequesterInfo drInfo) {
 		String regRes = drDAOHandler.donorRequestDao(drInfo);
 		if(regRes.equalsIgnoreCase("success")){
 			dmi.sendMail(drInfo.getUserName(), "Blood request", "Hi, Please accept my blood request");			
 		}
 		return regRes;
+	}
+	@Override
+	public String getPendingDocRequest() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

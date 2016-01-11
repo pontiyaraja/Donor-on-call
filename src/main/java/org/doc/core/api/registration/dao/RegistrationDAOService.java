@@ -35,15 +35,17 @@ public class RegistrationDAOService extends ConnectionProvider implements Regist
 		ResultSet rs = getResult(query);
 		String dbUser = "";
 		String dbPass = "";
+		String userType = "";
 		try {
 			 while (rs.next()){
 				dbUser = rs.getString("username");
 				dbPass = rs.getString("password");
+				userType = rs.getString("type");
 			 }
 			logger.debug(RegistrationDAOService.class+"   USER NSME   "+dbUser);
 			logger.debug(RegistrationDAOService.class+"  PASSWORD "+dbPass);
 			if(dbUser.equals(logInfo.getUserName()) && dbPass.equals(logInfo.getPassword())){
-				return "success";
+				return "success#"+userType;
 			}else{
 				return "fail";
 			}

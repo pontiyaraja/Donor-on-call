@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import org.doc.core.util.db.ConnectionProvider;
-import org.doc.donoroncall.donar.BloodRequesterInfo;
+import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
-public class BloodRequestDAOService extends ConnectionProvider implements BloodRequestDAOHandler {
+public class DocRequestDAOService extends ConnectionProvider implements DocRequestDAOHandler {
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +25,7 @@ public class BloodRequestDAOService extends ConnectionProvider implements BloodR
 	 * org.doc.donoroncall.donar.BloodRequesterInfo)
 	 */
 	@Override
-	public String donorRequestDao(BloodRequesterInfo drInfo) {
+	public String donorRequestDao(DocRequesterInfo drInfo) {
 		int retval=0;
 		try {
 			String query = "INSERT INTO doc.donor (" + "`user_name`,"    + "`blood_group`,"    + "`hospital_name`,"    + "`physician_name`,"    + "`patient`,"    + "`purpose`,"    + "unit," +"how_soon," +"`verified` ) VALUES ("
@@ -56,6 +56,12 @@ public class BloodRequestDAOService extends ConnectionProvider implements BloodR
 		    se.printStackTrace();
 		    return "fail";
 		  }
+	}
+
+	@Override
+	public String getPendingRequest() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/request")
-public class DocController {
+@RequestMapping("/donor")
+public class DocController {	
 	
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.core.util.db.ConnectionProvider;
+import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -55,18 +56,21 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 		    	ResultSet rs1 = getResult(st1);
 		    	if(rs1!=null){
 			    	String passWord="";
+			    	String type="";
 			    	System.out.println("Password ........   "+passWord);			    	
 					try {
 						while(rs1.next()){
 							passWord = rs1.getString("password");
+							type = rs1.getString("type");
 						}
 						System.out.println("Password ........   "+passWord);
-				    	if(passWord!=null){
+				    	if(!passWord.isEmpty() && !type.isEmpty()){
 				    		System.out.println("Password ........   Internal  ......   "+passWord);
-				    		String loginQuery = "insert into doc.login_auth (`username`,`password`) VALUES (?,?)";
+				    		String loginQuery = "insert into doc.login_auth (`username`,`password`,`type`) VALUES (?,?,?)";
 						    PreparedStatement st2 = con.prepareStatement(loginQuery);
 						    st2.setString(1, userName);
 						    st2.setString(2, passWord);
+						    st2.setString(2, type);
 						    retval = executeUpdate(st2);
 						    if(retval>0){
 						    	return "success";
@@ -102,7 +106,47 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 			PreparedStatement st = con.prepareStatement(query);
 			st.setString(1, userName);
 			int retval = executeUpdate(st);
-		    if(retval==1){		    	
+		    if(retval>0){
+		    	/*if(retval>0){
+			    	String userQuery = "select * from doc.user where username= ?";
+			    	PreparedStatement st1 = con.prepareStatement(userQuery);
+					st1.setString(1, userName);
+			    	ResultSet rs1 = getResult(st1);
+			    	if(rs1!=null){			    	
+						try {
+							DocRequesterInfo dri;
+							while(rs1.next()){
+								dri = new DocRequesterInfo();
+								dri.setUserName(rs1.getString(""));
+								dri.setBloodGroup(rs1.getString(""));
+								dri.setHospitalName(rs1.getString(""));
+								dri.setPhysicianName(rs1.getString(""));
+								dri.setPatient(rs1.getString(""));
+								dri.setPurpose(rs1.getString(""));
+								dri.setHowSoon(rs1.getInt(""));
+								dri.setUnit(rs1.getInt(""));
+							}
+					    	if(dri!=null){
+					    		String loginQuery = "INSERT INTO doc.donor (" + "`user_name`,"    + "`blood_group`,"    + "`hospital_name`,"    + "`physician_name`,"    + "`patient`,"    + "`purpose`,"    + "unit," +"how_soon," +"`accepted` ) VALUES ("
+				    + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
+							    PreparedStatement st2 = con.prepareStatement(loginQuery);
+							    st2.setString(1, dri.getUserName());
+							    st2.setString(2, );
+							    retval = executeUpdate(st2);
+							    if(retval>0){
+							    	return "success";
+							    }else{
+							    	return "fail";
+							    }
+					    	}
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}			    	
+			    	}else{
+			    		return "fail";
+			    	}
+			    }*/
 		    	return "success";
 		    }else{
 		    	return "fail";

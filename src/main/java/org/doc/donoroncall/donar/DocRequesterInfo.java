@@ -7,7 +7,7 @@ package org.doc.donoroncall.donar;
  * @author pandiyaraja
  * 
  */
-public class BloodRequesterInfo {
+public class DocRequesterInfo {
 	private String userName;
 	private String bloodGroup;
 	private String hospitalName;
