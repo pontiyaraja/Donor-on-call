@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import org.doc.core.util.db.ConnectionProvider;
+import org.doc.donoroncall.donar.DocDonorInfo;
 import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class DocRequestDAOService extends ConnectionProvider implements DocReque
 	public String donorRequestDao(DocRequesterInfo drInfo) {
 		int retval=0;
 		try {
-			String query = "INSERT INTO doc.donor (" + "`user_name`,"    + "`blood_group`,"    + "`hospital_name`,"    + "`physician_name`,"    + "`patient`,"    + "`purpose`,"    + "unit," +"how_soon," +"`verified` ) VALUES ("
+			String query = "INSERT INTO doc.requester (" + "`user_name`,"    + "`blood_group`,"    + "`hospital_name`,"    + "`physician_name`,"    + "`patient`,"    + "`purpose`,"    + "unit," +"how_soon," +"`verified` ) VALUES ("
 				    + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			Connection con = getConnection();
 		    PreparedStatement st = con.prepareStatement(query);
@@ -62,6 +63,34 @@ public class DocRequestDAOService extends ConnectionProvider implements DocReque
 	public String getPendingRequest() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String docDonorRequestDao(DocDonorInfo ddInfo) {
+		int retval=0;
+		try {
+			String query = "INSERT INTO doc.donor (" + "`user_name`,"    + "`blood_group`,"    + "`lastdonated_date`,"    + "`location` ) VALUES ("
+				    + "?, ?, ?, ?)";
+			Connection con = getConnection();
+		    PreparedStatement st = con.prepareStatement(query);
+		    st.setString(1, ddInfo.getUserName());
+		    st.setString(2,  ddInfo.getBloodGroup());
+		    st.setString(3, ddInfo.getLastDonatedDate());
+		    st.setString(4, ddInfo.getLocation());
+		    retval = executeUpdate(st);
+		    con.close();
+		    st.close();
+		    if(retval==1){
+		    	return "success";
+		    }else{
+		    	return "fail";
+		    }
+		  } 
+		  catch (Exception se)
+		  {
+		    se.printStackTrace();
+		    return "fail";
+		  }
 	}
 
 }

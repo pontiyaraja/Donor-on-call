@@ -8,6 +8,7 @@ package org.doc.donoroncall.donar;
  * 
  */
 public interface DocRequestHandler {
-	public String donorRequest(DocRequesterInfo brInfo);
+	public String docRequest(DocRequesterInfo drInfo);
+	public String docDonorRequest(DocDonorInfo ddInfo);
 	public String getPendingDocRequest();
 }

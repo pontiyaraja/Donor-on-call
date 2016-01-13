@@ -56,21 +56,18 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 		    	ResultSet rs1 = getResult(st1);
 		    	if(rs1!=null){
 			    	String passWord="";
-			    	String type="";
-			    	System.out.println("Password ........   "+passWord);			    	
+			    	String type="";			    	
 					try {
 						while(rs1.next()){
 							passWord = rs1.getString("password");
 							type = rs1.getString("type");
 						}
-						System.out.println("Password ........   "+passWord);
 				    	if(!passWord.isEmpty() && !type.isEmpty()){
-				    		System.out.println("Password ........   Internal  ......   "+passWord);
 				    		String loginQuery = "insert into doc.login_auth (`username`,`password`,`type`) VALUES (?,?,?)";
 						    PreparedStatement st2 = con.prepareStatement(loginQuery);
 						    st2.setString(1, userName);
 						    st2.setString(2, passWord);
-						    st2.setString(2, type);
+						    st2.setString(3, type);
 						    retval = executeUpdate(st2);
 						    if(retval>0){
 						    	return "success";

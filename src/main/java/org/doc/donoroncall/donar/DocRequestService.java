@@ -28,7 +28,7 @@ public class DocRequestService implements DocRequestHandler {
 	 * donoroncall.donar.BloodRequesterInfo)
 	 */
 	@Override
-	public String donorRequest(DocRequesterInfo drInfo) {
+	public String docRequest(DocRequesterInfo drInfo) {
 		String regRes = drDAOHandler.donorRequestDao(drInfo);
 		if(regRes.equalsIgnoreCase("success")){
 			dmi.sendMail(drInfo.getUserName(), "Blood request", "Hi, Please accept my blood request");			
@@ -39,5 +39,9 @@ public class DocRequestService implements DocRequestHandler {
 	public String getPendingDocRequest() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public String docDonorRequest(DocDonorInfo ddInfo) {
+		return drDAOHandler.docDonorRequestDao(ddInfo);
 	}
 }

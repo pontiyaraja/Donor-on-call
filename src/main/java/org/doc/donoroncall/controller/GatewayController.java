@@ -9,6 +9,7 @@ import org.doc.core.api.registration.handler.LoginHandler;
 import org.doc.core.api.registration.handler.RegisterationHandler;
 import org.doc.core.api.registration.info.LoginInfo;
 import org.doc.core.api.registration.info.RegistrationInfo;
+import org.doc.donoroncall.donar.DocDonorInfo;
 import org.doc.donoroncall.donar.DocRequestHandler;
 import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.slf4j.Logger;
@@ -84,13 +85,34 @@ public class GatewayController {
 			return null;
 		}
 	}
+	@RequestMapping(value = "doc/requester", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	String requesterRegister(@RequestBody String inputAsJson) {
+		try{
+		Gson gson=new Gson();
+		DocRequesterInfo drInfo = gson.fromJson(inputAsJson, DocRequesterInfo.class);
+		String resString = drHandler.docRequest(drInfo);
+		Map<String, String> obj = new HashMap<String,String>();
+		if(resString.equalsIgnoreCase("success")){
+		obj.put("registration", "success");
+		obj.put("status", "pending");
+		}else{
+			obj.put("registration", "fail");
+			obj.put("status", "unkwnon");
+		}		
+		return gson.toJson(obj);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 	@RequestMapping(value = "doc/donor", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	String donorRegister(@RequestBody String inputAsJson) {
 		try{
 		Gson gson=new Gson();
-		DocRequesterInfo drInfo = gson.fromJson(inputAsJson, DocRequesterInfo.class);
-		String resString = drHandler.donorRequest(drInfo);
+		DocDonorInfo drInfo = gson.fromJson(inputAsJson, DocDonorInfo.class);
+		String resString = drHandler.docDonorRequest(drInfo);
 		Map<String, String> obj = new HashMap<String,String>();
 		if(resString.equalsIgnoreCase("success")){
 		obj.put("registration", "success");
