@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import org.doc.core.util.db.ConnectionProvider;
-import org.doc.donoroncall.donar.DocDonorInfo;
-import org.doc.donoroncall.donar.DocRequesterInfo;
+import org.doc.donoroncall.doc.info.DocDonorInfo;
+import org.doc.donoroncall.doc.info.DocRequesterInfo;
 import org.springframework.stereotype.Service;
 
 /**

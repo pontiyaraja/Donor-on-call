@@ -42,9 +42,11 @@ public class RegistrationDAOService extends ConnectionProvider implements Regist
 				dbPass = rs.getString("password");
 				userType = rs.getString("type");
 			 }
+			System.out.println("USER NAME ---------> "+dbUser);
+			System.out.println("USER NAME ---------> "+dbPass);
 			logger.debug(RegistrationDAOService.class+"   USER NSME   "+dbUser);
 			logger.debug(RegistrationDAOService.class+"  PASSWORD "+dbPass);
-			if(dbUser.equals(logInfo.getUserName()) && dbPass.equals(logInfo.getPassword())){
+			if(dbUser == logInfo.getUserName() && dbPass.equals(logInfo.getPassword())){
 				return "success#"+userType;
 			}else{
 				return "fail";

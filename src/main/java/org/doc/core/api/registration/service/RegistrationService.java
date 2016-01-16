@@ -7,8 +7,6 @@ import org.doc.core.api.registration.dao.RegistrationDAOHandler;
 import org.doc.core.api.registration.handler.RegisterationHandler;
 import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.core.util.DocMailingInterface;
-import org.doc.core.util.DocMailingProcessor;
-import org.doc.core.util.db.ConnectionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

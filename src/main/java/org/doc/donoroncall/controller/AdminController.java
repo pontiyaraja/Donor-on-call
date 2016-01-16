@@ -3,12 +3,10 @@
  */
 package org.doc.donoroncall.controller;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.doc.core.api.registration.info.LoginInfo;
 import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.donoroncall.admin.AdminHandler;
 import org.doc.donoroncall.admin.dao.AdminInfo;
@@ -17,11 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * @author pandiyaraja

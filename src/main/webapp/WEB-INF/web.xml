@@ -49,4 +49,12 @@
 		<servlet-name>donoroncall</servlet-name>
 		<url-pattern>/admn/acceptBloodRequest</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>donoroncall</servlet-name>
+		<url-pattern>/donor/list</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>donoroncall</servlet-name>
+		<url-pattern>/donor/forrecipient</url-pattern>
+	</servlet-mapping>
 </web-app>

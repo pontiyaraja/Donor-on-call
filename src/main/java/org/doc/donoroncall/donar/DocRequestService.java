@@ -5,6 +5,8 @@ package org.doc.donoroncall.donar;
 
 import org.doc.core.util.DocMailingInterface;
 import org.doc.core.util.DocMailingProcessor;
+import org.doc.donoroncall.doc.info.DocDonorInfo;
+import org.doc.donoroncall.doc.info.DocRequesterInfo;
 import org.doc.donoroncall.donar.dao.DocRequestDAOHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -9,9 +9,7 @@ import java.util.List;
 
 import org.doc.core.api.registration.info.RegistrationInfo;
 import org.doc.core.util.db.ConnectionProvider;
-import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class AdminDAOService extends ConnectionProvider implements AdminDAOHandler{

@@ -9,9 +9,9 @@ import org.doc.core.api.registration.handler.LoginHandler;
 import org.doc.core.api.registration.handler.RegisterationHandler;
 import org.doc.core.api.registration.info.LoginInfo;
 import org.doc.core.api.registration.info.RegistrationInfo;
-import org.doc.donoroncall.donar.DocDonorInfo;
+import org.doc.donoroncall.doc.info.DocDonorInfo;
+import org.doc.donoroncall.doc.info.DocRequesterInfo;
 import org.doc.donoroncall.donar.DocRequestHandler;
-import org.doc.donoroncall.donar.DocRequesterInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class GatewayController {
 			logger.info(clz + "getOAuth GET end."+loginInfo.getUserName()+"    "+resString);		
 		}else{
 			obj.put("success", "false");
-			obj.put("accessToken", null);		
+			obj.put("accessToken", "null");		
 			logger.info(clz + "getOAuth GET end."+loginInfo.getUserName()+"    "+resString);
 		}
 		return gson.toJson(obj);

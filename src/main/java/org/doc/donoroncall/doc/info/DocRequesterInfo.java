@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.doc.donoroncall.donar;
+package org.doc.donoroncall.doc.info;
 
 /**
  * @author pandiyaraja
