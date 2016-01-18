@@ -6,6 +6,7 @@ package org.doc.donoroncall.doc;
 import java.util.List;
 
 import org.doc.donoroncall.doc.dao.DocDAOHandler;
+import org.doc.donoroncall.doc.info.BloodDonationInfo;
 import org.doc.donoroncall.doc.info.DocDonorInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,18 @@ public class DocService implements DocHandler{
 	}
 
 	@Override
-	public String selectDonors() {
-		// TODO Auto-generated method stub
-		return null;
+	public String selectDonors(DocDonorInfo dInfo) {		
+		return dDHandler.selectDonor(dInfo);
+	}
+
+	@Override
+	public List<BloodDonationInfo> getPendingRequest(String userName) {		
+		return dDHandler.getPendingRequests(userName);
+	}
+
+	@Override
+	public String acceptBloodRequest(String userName) {
+		return dDHandler.acceptBloodRequest(userName);
 	}
 
 }

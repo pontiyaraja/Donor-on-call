@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.doc.donoroncall.doc.DocHandler;
+import org.doc.donoroncall.doc.info.BloodDonationInfo;
 import org.doc.donoroncall.doc.info.DocDonorInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,51 @@ public class DocController {
 		return gson.toJson(resMap);
 	}
 	
-	@RequestMapping(value = "/selectRecipient", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/selectDonor", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String selectDonor(@RequestBody String donorInfo){
-		
-		return null;
+		Gson gson = new Gson();
+		DocDonorInfo docDonorInfo = gson.fromJson(donorInfo, DocDonorInfo.class);
+		String resString = docHandler.selectDonors(docDonorInfo);
+		Map<String, String> resMap = new HashMap<String, String>();
+		if(resString.equalsIgnoreCase("success")){
+			resMap.put("status", "success");
+			resMap.put("request", "sent");
+		}else{
+			resMap.put("status", "fail");
+			resMap.put("request", "droped");
+		}
+		return gson.toJson(resMap);
+	}
+	
+	@RequestMapping(value = "/pendingRequests", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody <T> String getPendingRequests(@RequestBody String userName){
+		Gson gson = new Gson();
+		BloodDonationInfo docDonorInfo = gson.fromJson(userName, BloodDonationInfo.class);
+		List<BloodDonationInfo> pendingRequestList = docHandler.getPendingRequest("name");
+		Map<String, T> resMap = new HashMap<String, T>();
+		if(!pendingRequestList.isEmpty()){
+			resMap.put("status", (T) "success");
+			resMap.put("donors", (T) pendingRequestList);
+		}else{
+			resMap.put("status", (T) "fail");
+			resMap.put("donors", (T) pendingRequestList);
+		}
+		return gson.toJson(resMap);
+	}
+	
+	@RequestMapping(value = "/acceptRequest", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String accept(@RequestBody String donorInfo){
+		Gson gson = new Gson();
+		DocDonorInfo docDonorInfo = gson.fromJson(donorInfo, DocDonorInfo.class);
+		String resString = docHandler.acceptBloodRequest(docDonorInfo.getUserName());
+		Map<String, String> resMap = new HashMap<String, String>();
+		if(resString.equalsIgnoreCase("success")){
+			resMap.put("status", "success");
+			resMap.put("request", "accepted");
+		}else{
+			resMap.put("status", "fail");
+			resMap.put("request", "unknown");
+		}
+		return gson.toJson(resMap);
 	}
 }

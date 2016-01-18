@@ -38,11 +38,6 @@ public class DocRequestService implements DocRequestHandler {
 		return regRes;
 	}
 	@Override
-	public String getPendingDocRequest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
 	public String docDonorRequest(DocDonorInfo ddInfo) {
 		return drDAOHandler.docDonorRequestDao(ddInfo);
 	}

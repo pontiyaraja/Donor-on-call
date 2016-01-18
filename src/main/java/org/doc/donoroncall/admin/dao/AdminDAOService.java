@@ -41,7 +41,7 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 
 	@Override
 	public String authorizeUser(String userName) {
-		String query = "update user set authorized='yes' where username= ?";
+		String query = "update doc.user set authorized='yes' where username= ?";
 		Connection con = getConnection();
 		try {
 			PreparedStatement st = con.prepareStatement(query);
@@ -95,7 +95,7 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 
 	@Override
 	public String acceptRequest(String userName) {
-		String query = "update doc.donor set verified='yes' where user_name= ?";
+		String query = "update doc.request set verified='yes' where user_name= ?";
 		Connection con = getConnection();
 		try {
 			PreparedStatement st = con.prepareStatement(query);

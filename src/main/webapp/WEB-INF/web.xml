@@ -57,4 +57,16 @@
 		<servlet-name>donoroncall</servlet-name>
 		<url-pattern>/donor/forrecipient</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>donoroncall</servlet-name>
+		<url-pattern>/donor/selectDonor</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>donoroncall</servlet-name>
+		<url-pattern>/donor/pendingRequests</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>donoroncall</servlet-name>
+		<url-pattern>/donor/acceptRequest</url-pattern>
+	</servlet-mapping>
 </web-app>
