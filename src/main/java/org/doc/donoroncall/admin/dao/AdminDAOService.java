@@ -74,7 +74,6 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 						    }
 				    	}
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}			    	
 		    	}else{
@@ -84,10 +83,8 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 		    	return "fail";
 		    }
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "fail";
@@ -95,7 +92,7 @@ public class AdminDAOService extends ConnectionProvider implements AdminDAOHandl
 
 	@Override
 	public String acceptRequest(String userName) {
-		String query = "update doc.request set verified='yes' where user_name= ?";
+		String query = "update doc.requester set verified='yes' where user_name= ?";
 		Connection con = getConnection();
 		try {
 			PreparedStatement st = con.prepareStatement(query);
